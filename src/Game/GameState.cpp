@@ -16,7 +16,10 @@ void GameState::setRenderer(SDL_Renderer *renderer) {
 
 void GameState::loadCurrentLevel(Level *newLevel) {
 
-	if (newLevel) currentLevel = newLevel;
+	if (newLevel) {
+		currentLevel = newLevel;
+		currentLevel->setup();
+	}
 
 }
 
@@ -25,6 +28,7 @@ void GameState::update(float dt) {
 	playerController.applyKeyState(keyHandler.getKeyStates());
 	playerController.update(dt);
 	if (currentLevel) { currentLevel->update(dt); }
+
 
 }
 

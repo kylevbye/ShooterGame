@@ -11,8 +11,13 @@ void Game::TitleLevel::update(float dt) {
 
 void Game::TitleLevel::updateEvents(Uint32 time, float dt) {
 
-	if (time == 2700) {
-		titleDropSound->play();
+	//	play sound
+	if (!titleDropSound->isPlayed() && time > 2700) {
+		titleDropSound->play(80);
+	}
+
+	if (!titleMusic->isPlayed() && time > 4000) {
+		titleMusic->play(30);
 	}
 
 	//	Update Activity of TitleLabel
@@ -49,6 +54,9 @@ Game::TitleLevel::TitleLevel() : Game::Level(), titleLabel(nullptr), instruction
 	//	DROP SOUND
 	titleDropSound = loadSound("res/snd/titledrop.wav");
 
+	//	Music
+	titleMusic = loadMusic("res/mus/titlemusic.wav");
+
 	//	Positioning
 	int tL_h = titleLabel->getFontHeight();
 	titleLabel->setPosition(screenWidth/2, screenHeight/2-tL_h);
@@ -56,5 +64,21 @@ Game::TitleLevel::TitleLevel() : Game::Level(), titleLabel(nullptr), instruction
 
 	Game::Stage *titleStage = loadStage(screenObjects);
 	addStage(titleStage);
+
+}
+
+TitleLevel::~TitleLevel() {
+
+	//	Free
+	delete titleLabel;
+	delete instructionLabel;
+	delete titleDropSound;
+	delete titleMusic;
+
+	//	Realign Pointers
+	titleLabel = nullptr;
+	instructionLabel = nullptr;
+	titleDropSound = nullptr;
+	titleMusic = nullptr;
 
 }

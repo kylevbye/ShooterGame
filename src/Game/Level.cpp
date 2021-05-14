@@ -22,7 +22,13 @@ void Game::Level::render(SDL_Renderer *renderer) {
 
 }
 
-Game::Level::Level() : startTime(SDL_GetTicks()) {
+void Game::Level::setup() {
+	startTime = SDL_GetTicks();
+	done = false;
+	nextLevelCode = Levels::TITLELEVEL;
+}
+
+Game::Level::Level() : startTime(SDL_GetTicks()), done(false), nextLevelCode(Levels::TITLELEVEL) {
 
 }
 

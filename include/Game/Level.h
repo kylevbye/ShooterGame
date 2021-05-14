@@ -16,6 +16,16 @@ namespace Game {
 
 }
 
+enum Levels {
+	TITLELEVEL,
+	MAIN_MENU,
+	BATTLE_DIALOGUE,
+	BATTLE_INTRO,
+	BATTLE,
+	ENDING,
+	GAME_OVER
+};
+
 class Game::Level {
 
 protected:
@@ -23,11 +33,15 @@ protected:
 	std::vector<Stage *> stages;
 	Entity *playerEntity;
 	Uint32 startTime;
+	bool done;
+	Levels nextLevelCode;
 
 public:
 
 	//	Getter
 	Entity *getPlayerEntity() { return playerEntity; }
+	bool isDone() { return done; }
+	Levels getNextLevelCode() { return nextLevelCode; } 
 
 	//	Setter
 	void setPlayerEntity(Entity *entity) {
@@ -39,6 +53,8 @@ public:
 	virtual void update(float dt);
 	virtual void updateEvents(Uint32 time, float dt) = 0;
 	virtual void render(SDL_Renderer *renderer);
+
+	virtual void setup();
 
 	Level();
 	virtual ~Level();

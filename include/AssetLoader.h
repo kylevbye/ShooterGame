@@ -10,6 +10,7 @@
 #include "Game/Stage.h"
 #include "Game/Levels/TitleLevel.h"
 #include "Sound.h"
+#include "Music.h"
 
 
 ///
@@ -45,6 +46,7 @@ Label *loadLabel(float x, float y, std::string text, const char *fontFile, int f
 ///	Level Class
 ///
 Game::Level *loadLevel(std::string levelName);
+Game::Level *loadLevel(Levels levelCode);
 
 ///
 ///	Stage Class
@@ -55,3 +57,8 @@ Game::Stage *loadStage(std::vector<Entity *> entityList);
 ///	Sound Class
 ///
 Sound *loadSound(std::string filePath);
+
+///
+///	Music Class
+///
+Music *loadMusic(std::string filePath);

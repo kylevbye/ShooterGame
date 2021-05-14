@@ -1,32 +1,31 @@
 #pragma once
 #include <SDL2/SDL_mixer.h>
 
-class Sound {
+class Music {
 
 private:
 
-	Mix_Chunk *sound;
+	Mix_Music *music;
 	int volume;
+	bool looping;
 	bool played;
 
 public:
 
 	//	Getters
-	Mix_Chunk *getSound() { return sound; }
-	int getVolume() { return volume; }
+	Mix_Music *getMusic() { return music; }
 	bool isPlayed() { return played; }
+	int getVolume() { return volume; }
 
 	//	Setters
-	void setVolume(int volume);
 	void setPlayed(bool playedFlag);
+	void setVolume(int volume);
 
 	void play();
 	void play(int volume);
+	void stop();
 
-	//	Constructor
-	Sound(Mix_Chunk *sound, int volume);
-
-	//	Destructor
-	~Sound();
+	Music(Mix_Music *music, bool looping = true);
+	~Music();
 
 };

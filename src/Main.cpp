@@ -129,6 +129,8 @@ int main(int argc, char *args[]) {
 
 	//	Termination Sequence
 	delete gameWindow;
+	Mix_Quit();
+	IMG_Quit();
 	SDL_Quit();
 	terminate();
 

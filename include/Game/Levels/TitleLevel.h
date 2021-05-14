@@ -2,6 +2,7 @@
 #include "Game/Level.h"
 #include "Label.h"
 #include "Sound.h"
+#include "Music.h"
 #include "AssetLoader.h"
 
 
@@ -18,6 +19,7 @@ private:
 	Label *titleLabel;
 	Label *instructionLabel;
 	Sound *titleDropSound;
+	Music *titleMusic;
 
 public:
 
@@ -27,6 +29,6 @@ public:
 
 	///	Constructors
 	TitleLevel();
-	~TitleLevel() {}
+	~TitleLevel();
 
 };

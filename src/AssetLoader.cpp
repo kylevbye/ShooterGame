@@ -88,6 +88,23 @@ Game::Level *loadLevel(std::string levelName) {
 
 }
 
+Game::Level *loadLevel(Levels levelCode) {
+
+	Game::Level *level = nullptr;
+
+	switch (levelCode) {
+		case Levels::TITLELEVEL:
+			level = new Game::TitleLevel();
+			break;
+		default:
+			break;
+
+	}
+
+	return level;
+
+}
+
 Game::Stage *loadStage(std::vector<Entity *> entityList) {
 
 	Game::Stage *returnStage = new Game::Stage();
@@ -118,5 +135,17 @@ Sound *loadSound(std::string filePath) {
 	else SDL_Log("%s failed to load.", filePath.c_str());
 
 	return returnSound;
+
+}
+
+Music *loadMusic(std::string filePath) {
+
+	Music *returnMusic = nullptr;
+
+	Mix_Music *mus = Mix_LoadMUS(filePath.c_str());
+	if (mus) returnMusic = new Music(mus);
+	else SDL_Log("%s failed to load.", filePath.c_str());
+
+	return returnMusic;
 
 }
