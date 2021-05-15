@@ -4,7 +4,7 @@ void Game::Level::addStage(Stage *stage) {
 	if (stage) stages.push_back(stage);
 }
 
-void Game::Level::update(float dt) {
+void Game::Level::update(float dt, const KeyStates &keyStates) {
 	Uint32 currentTime = SDL_GetTicks()-startTime;
 	updateEvents(currentTime, dt);
 	for (Stage *stage : stages) {

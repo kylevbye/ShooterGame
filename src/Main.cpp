@@ -1,22 +1,19 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
-#include "Game/Stage.h"
 #include "Game/Level.h"
 #include "Game/GameState.h"
 #include "GameWindow.h"
-#include "Entity.h"
 #include "AssetLoader.h"
-#include "Math.h"
+#include "AssetHandler.h"
 #include "Label.h"
-#include "Sound.h"
 #include <iostream>
-#include <time.h>
 
 float screenWidth, screenHeight;
 SDL_Renderer *asset_renderer;
 Game::GameState gameState;
 GameWindow *gameWindow;
+LevelHandler levels;
 bool isRunning = true;
 bool isDebugging = false;
 Uint32 totalTicks = 0;
@@ -24,9 +21,9 @@ Uint32 totalFrames = 0;
 float currentFPS = 0.f;
 float averageFPS = 0.f;
 
+int initialize();
 void handleInput();
 void terminate();
-void test();
 
 /**
  *	
@@ -35,8 +32,62 @@ int main(int argc, char *args[]) {
 
 	std::cout << "Starting Shooter Game" << std::endl;
 
-	test();
+	if (initialize() == 1) return 1;
 
+	//	VFR
+	Uint32 lastUpdate = SDL_GetTicks();
+
+	//	Game Loop
+	while (isRunning) {
+
+		//	Time Update
+		++totalFrames;
+		Uint32 startTicks = SDL_GetTicks();
+
+		//	Process Logic
+		handleInput();
+
+		//	Update
+		Uint32 current = SDL_GetTicks();
+		float dt = (current-lastUpdate)/1000.f;
+		gameState.update(dt);
+		if (gameState.getCurrentLevel().isDone()) {
+			gameState.loadCurrentLevel(
+				loadLevel(gameState.getCurrentLevel().getNextLevelCode())
+				);
+		}
+		lastUpdate = current;
+
+		//	Render
+		gameWindow->clear();
+		gameState.render();
+		gameWindow->display();
+
+		//	Random FPS Test
+		//SDL_Delay(rand() % 35);
+
+		//	End Frame Time
+		float frameTime = (SDL_GetTicks()-startTicks)/1000.f;
+		currentFPS = 1.f/frameTime;
+		if (isDebugging) {
+			std::cout << "FPS = " << currentFPS << std::endl;
+
+		}
+
+	}
+
+	//	Termination Sequence
+	delete gameWindow;
+	Mix_Quit();
+	IMG_Quit();
+	SDL_Quit();
+	terminate();
+
+	return 0;
+
+}
+
+int initialize() {
 	//	Init SDL; Quit if failed.
 	if (SDL_Init(SDL_INIT_VIDEO||SDL_INIT_AUDIO != 0)) {
 		
@@ -88,53 +139,7 @@ int main(int argc, char *args[]) {
 
 	//	GameState
 	gameState = (gameWindow->getRenderer());
-	gameState.loadCurrentLevel(loadLevel("TitleScreen"));
-
-	//	VFR
-	Uint32 lastUpdate = SDL_GetTicks();
-
-	//	Game Loop
-	while (isRunning) {
-
-		//	Time Update
-		++totalFrames;
-		Uint32 startTicks = SDL_GetTicks();
-
-		//	Process Logic
-		handleInput();
-
-		//	Update
-		Uint32 current = SDL_GetTicks();
-		float dt = (current-lastUpdate)/1000.f;
-		gameState.update(dt);
-		lastUpdate = current;
-
-		//	Render
-		gameWindow->clear();
-		gameState.render();
-		gameWindow->display();
-
-		//	Random FPS Test
-		//SDL_Delay(rand() % 35);
-
-		//	End Frame Time
-		float frameTime = (SDL_GetTicks()-startTicks)/1000.f;
-		currentFPS = 1.f/frameTime;
-		if (isDebugging) {
-			std::cout << "FPS = " << currentFPS << std::endl;
-
-		}
-
-	}
-
-	//	Termination Sequence
-	delete gameWindow;
-	Mix_Quit();
-	IMG_Quit();
-	SDL_Quit();
-	terminate();
-
-	return 0;
+	gameState.loadCurrentLevel(loadLevel("titleLevel"));
 
 }
 
@@ -170,8 +175,4 @@ void terminate() {
 	std::cout << "Shooter Game terminated..." << std::endl;
 	std::cout << "Press Enter to Exit..." << std::endl;
 	std::cin.get();
-}
-
-void test() {
-
 }

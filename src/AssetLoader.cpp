@@ -14,7 +14,7 @@ SDL_Texture *loadTexture(const char *filePath) {
 
 }
 
-Entity *loadEntity(float x, float y, const char *filePath) {
+Entity *loadEntity(const char *filePath, float x, float y) {
 
 	Entity *returnEntity = nullptr;
 
@@ -51,40 +51,37 @@ Label *loadLabel(float x, float y, std::string text, const char *fontFile, int f
 
 Game::Level *loadLevel(std::string levelName) {
 
-	Game::Level *level = nullptr;
+	Levels levelCode;
 
-	if (levelName == "testLevel") {
-
-		std::vector<Entity *> screenObjects;
-
-		//	Entity Test
-		Entity *yeeter = loadEntity(110, 0, "res/img/yeetus.png");
-		yeeter->setScaleX(.25f);
-		level->setPlayerEntity(yeeter);
-		screenObjects.push_back(yeeter);
-
-		//	Label *label;
-		Label *label = loadLabel(0, 0, "YEETERS! LOL!", "res/fnt/DTM-Mono.ttf", 25, {255,255,255}); 
-		screenObjects.push_back(label);
-
-		Game::Stage *testStage = loadStage(screenObjects);
-
-		level->addStage(testStage);
-
+	if (levelName == "titleLevel") {
+		levelCode = Levels::TITLELEVEL;
 	}
-	else if (levelName == "TitleScreen") {
-
-		Game::TitleLevel *title = new Game::TitleLevel();
-
-		level = title;
-
+	else if (levelName == "mainMenu") {
+		levelCode == Levels::MAIN_MENU;
+	}
+	else if (levelName == "instructionMenu") {
+		levelCode == Levels::INSTRUCTION_MENU;
+	}
+	else if (levelName == "battleDialogue") {
+		levelCode == Levels::BATTLE_DIALOGUE;
+	}
+	else if (levelName == "battleIntro") {
+		levelCode == Levels::BATTLE_INTRO;
+	}
+	else if (levelName == "battle") {
+		levelCode == Levels::BATTLE;
+	}
+	else if (levelName == "ending") {
+		levelCode == Levels::ENDING;
+	}
+	else if (levelName == "gameOver") {
+		levelCode == Levels::GAME_OVER;
 	}
 	else {
-		delete level;
-		level = nullptr;
+		return nullptr;
 	}
 
-	return level;
+	return loadLevel(levelCode);
 
 }
 
@@ -94,8 +91,25 @@ Game::Level *loadLevel(Levels levelCode) {
 
 	switch (levelCode) {
 		case Levels::TITLELEVEL:
-			level = new Game::TitleLevel();
+			if (!levels.titleLevel) {
+				level = new Game::TitleLevel();
+				levels.titleLevel = (Game::TitleLevel *)level;
+			}
+			else level = levels.titleLevel;
 			break;
+		case Levels::MAIN_MENU:
+			if (!levels.mainMenuLevel) {
+				level = new Game::MainMenuLevel();
+				levels.mainMenuLevel = (Game::MainMenuLevel *)level;
+			}
+			else level = levels.mainMenuLevel;
+			break;
+		case Levels::INSTRUCTION_MENU:
+			if(!levels.instructionLevel) {
+				level = new Game::InstructionLevel();
+				levels.instructionLevel = (Game::InstructionLevel *)level;
+			}
+			else level = levels.instructionLevel;
 		default:
 			break;
 

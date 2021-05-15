@@ -27,7 +27,10 @@ void GameState::update(float dt) {
 
 	playerController.applyKeyState(keyHandler.getKeyStates());
 	playerController.update(dt);
-	if (currentLevel) { currentLevel->update(dt); }
+	if (currentLevel) { 
+		currentLevel->update(dt, keyHandler.getKeyStates()); 
+	}
+	keyHandler.resetHandleStates();
 
 
 }

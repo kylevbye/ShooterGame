@@ -68,7 +68,7 @@ void GameWindow::toggleFullScreen() {
 ///
 
 GameWindow::GameWindow(const char *title, int width, int height) 
-	: width(width), height(height), isFullScreen(false), window(nullptr), renderer(nullptr) {
+	: width(width), height(height), isFullScreen(false), window(nullptr), renderer(nullptr), windowIcon(nullptr) {
 
 	//	Create a resizable SDL Window w/ unknown coords
 	window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
@@ -85,6 +85,10 @@ GameWindow::GameWindow(const char *title, int width, int height)
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 	SDL_RenderSetLogicalSize(renderer, width, height);
 
+	//	Set the window icon (use CPU for creating)
+	windowIcon = IMG_Load("res/img/asgoreLookDown.png");
+	SDL_SetWindowIcon(window, windowIcon);
+
 }
 
 ///
@@ -93,4 +97,10 @@ GameWindow::GameWindow(const char *title, int width, int height)
 
 GameWindow::~GameWindow() {
 	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderer);
+	SDL_FreeSurface(windowIcon);
+
+	window = nullptr;
+	renderer = nullptr;
+	windowIcon = nullptr;
 }

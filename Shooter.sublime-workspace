@@ -4,8 +4,68 @@
 		"selected_items":
 		[
 			[
+				"titleLabel",
+				"titleLabelFront"
+			],
+			[
+				"title",
+				"titleLabelFront"
+			],
+			[
+				"le",
+				"levelCode"
+			],
+			[
+				"lev",
+				"levelName"
+			],
+			[
+				"load",
+				"loadLevel"
+			],
+			[
+				"TIT",
+				"TitleScreen"
+			],
+			[
+				"Le",
+				"Levels"
+			],
+			[
+				"SDL",
+				"SDL_GetTicks"
+			],
+			[
+				"v",
+				"volume"
+			],
+			[
+				"Vo",
+				"volume"
+			],
+			[
+				"pla",
+				"played"
+			],
+			[
+				"ti",
+				"titleMusic"
+			],
+			[
+				"titl",
+				"titleLabel"
+			],
+			[
+				"ret",
+				"returnMusic"
+			],
+			[
 				"c",
-				"chunk"
+				"c_str"
+			],
+			[
+				"t",
+				"titleSoundPlayed"
 			],
 			[
 				"re",
@@ -18,10 +78,6 @@
 			[
 				"ins",
 				"instructionLabel"
-			],
-			[
-				"titl",
-				"TitleLevel"
 			],
 			[
 				"upda",
@@ -44,10 +100,6 @@
 				"alpha"
 			],
 			[
-				"title",
-				"titleLabel"
-			],
-			[
 				"rend",
 				"render"
 			],
@@ -58,10 +110,6 @@
 			[
 				"scn",
 				"screenHeight"
-			],
-			[
-				"load",
-				"loadLabel"
 			],
 			[
 				"level",
@@ -78,10 +126,6 @@
 			[
 				"entit",
 				"entityArr"
-			],
-			[
-				"ret",
-				"returnStage"
 			],
 			[
 				"reu",
@@ -146,10 +190,6 @@
 			[
 				"setS",
 				"setScaleY"
-			],
-			[
-				"SDL",
-				"SDL_QUIT"
 			],
 			[
 				"game",
@@ -317,6 +357,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/byekv/source/c++/Shooter/include/Game/Music.h",
 		"/C/Users/byekv/source/c++/Shooter/include/Entity.h",
 		"/C/Users/byekv/source/c++/Shooter/include/Game/Level.h",
 		"/C/Users/byekv/source/c++/Shooter/include/Game/TitleLevel.h",
@@ -375,7 +416,7 @@
 	},
 	"input":
 	{
-		"height": 44.0
+		"height": 46.0
 	},
 	"layout":
 	{

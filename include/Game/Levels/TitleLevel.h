@@ -16,7 +16,8 @@ class Game::TitleLevel : public Game::Level {
 
 private:
 
-	Label *titleLabel;
+	Label *titleLabelFront;
+	Label *titleLabelBack;
 	Label *instructionLabel;
 	Sound *titleDropSound;
 	Music *titleMusic;
@@ -24,11 +25,14 @@ private:
 public:
 
 	//	From Level
-	void update(float dt);
+	void update(float dt, const KeyStates &keyStates);
 	void updateEvents(Uint32 time, float dt);
+	void setup();
 
 	///	Constructors
 	TitleLevel();
+
+	//	Destructor
 	~TitleLevel();
 
 };

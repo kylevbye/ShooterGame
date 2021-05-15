@@ -20,6 +20,8 @@ public:
 
 	int getFontWidth();
 	int getFontHeight();
+	std::string getText() { return text; }
+	TTF_Font *getFont() { return font; }
 
 	void render(SDL_Renderer *renderer);
 

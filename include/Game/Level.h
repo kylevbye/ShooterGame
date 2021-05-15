@@ -2,12 +2,14 @@
 #include <vector>
 #include <SDL2/SDL.h>
 #include "Game/Stage.h"
+#include "KeyEventHandler.h"
 
 ///
 ///	Forward Declarations
 ///
 
 class Entity; 
+struct KeyStates;
 
 namespace Game {
 
@@ -19,6 +21,7 @@ namespace Game {
 enum Levels {
 	TITLELEVEL,
 	MAIN_MENU,
+	INSTRUCTION_MENU,
 	BATTLE_DIALOGUE,
 	BATTLE_INTRO,
 	BATTLE,
@@ -50,7 +53,7 @@ public:
 
 	void addStage(Game::Stage *stage);
 
-	virtual void update(float dt);
+	virtual void update(float dt, const KeyStates &keyStates);
 	virtual void updateEvents(Uint32 time, float dt) = 0;
 	virtual void render(SDL_Renderer *renderer);
 

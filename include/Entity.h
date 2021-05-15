@@ -24,6 +24,7 @@ protected:
 	float originX, originY;
 	float angleDeg;
 	SDL_RendererFlip flipSetting;
+	SDL_Color color;
 
 	Vector2D positionVector;
 	Vector2D velocityVector;
@@ -46,6 +47,7 @@ public:
 	float getOriginX() { return originX; }
 	float getOriginY() { return originY; }
 	float getAngleDeg() { return angleDeg; }
+	SDL_Color getColor() { return color; }
 	Vector2D getPositionVector() { return positionVector; }
 	Vector2D getVelocityVector() { return velocityVector; }
 	Vector2D getAccelerationVector() { return accelerationVector; }
@@ -71,6 +73,7 @@ public:
 	void setOriginY(float originY) { this->originY = originY; }
 	void setOrigin(float originX, float originY);
 	void setAngleDeg(float angleDeg);
+	void setColor(SDL_Color color);
 	void setMaxSpeed(float speedValue);
 	void setDecelerationValue(float decelValue);
 	void setSpeed(float speed);
@@ -84,7 +87,7 @@ public:
 	virtual void render(SDL_Renderer *renderer);
 
 	///	Constructors
-	Entity(float x, float y, SDL_Texture *texture);
+	Entity(float x = 0.f, float y = 0.f, SDL_Texture *texture = nullptr, bool activeFlag = true, bool centeredFlag = true, Uint8 alpha = 255, float scaleX = 1.f, float scaleY = 1.f, float originX = 0.f, float originY = 0.f, float angleDeg = 0.f, SDL_RendererFlip flipSetting = SDL_FLIP_NONE, SDL_Color color = {255,255,255}, float maxSpeed = 1000000.f, float decelerationValue = 0.f);
 
 	///	Destructor
 	virtual ~Entity();

@@ -16,6 +16,7 @@ private:
 	bool isFullScreen;
 	SDL_Window *window;
 	SDL_Renderer *renderer;
+	SDL_Surface *windowIcon;
 
 public:
 

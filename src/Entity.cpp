@@ -79,6 +79,10 @@ void Entity::setAngleDeg(float angleDeg) {
 	this->angleDeg = angleDeg; 
 }
 
+void Entity::setColor(SDL_Color color) {
+	this->color = color;
+}
+
 void Entity::setMaxSpeed(float speedValue) { 
 	if (speedValue >= 0) {
 		this->maxSpeed = speedValue; 
@@ -142,8 +146,8 @@ void Entity::render(SDL_Renderer *renderer) {
 
 	//	Center if Neccesary
 	if (centeredFlag) {
-		destination.x -= destination.w/2;
-		destination.y -= destination.h/2;
+		destination.x -= destination.w/2.f;
+		destination.y -= destination.h/2.f;
 	}
 
 	///	Rotation
@@ -153,13 +157,14 @@ void Entity::render(SDL_Renderer *renderer) {
 
 	///	Render Time
 	SDL_SetTextureAlphaMod(texture, alpha);
+	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
 	//SDL_RenderCopy(renderer, texture, &source, &destination);
 	SDL_RenderCopyEx(renderer, texture, &source, &destination, angleDeg, &origin, flipSetting);
 
 }
 
-Entity::Entity(float x, float y, SDL_Texture *texture)
-	: texture(texture), activeFlag(true), centeredFlag(false), alpha(255), scaleX(1.f), scaleY(1.f), originX(0.f), originY(0.f), angleDeg(0.f),flipSetting(SDL_FLIP_NONE), positionVector(x,y), velocityVector(0.f, 0.f), accelerationVector(0.f, 0.f), maxSpeed(1000000.f), decelerationValue(0.f) {
+Entity::Entity(float x, float y, SDL_Texture *texture, bool activeFlag, bool centeredFlag, Uint8 alpha, float scaleX, float scaleY, float originX, float originY, float angleDeg, SDL_RendererFlip flipSetting, SDL_Color color, float maxSpeed, float decelerationValue)
+	: texture(texture), activeFlag(activeFlag), centeredFlag(centeredFlag), alpha(alpha), scaleX(scaleX), scaleY(scaleY), originX(originX), originY(originY), angleDeg(angleDeg), flipSetting(flipSetting), color(color), positionVector(x,y), velocityVector(0.f, 0.f), accelerationVector(0.f, 0.f), maxSpeed(maxSpeed), decelerationValue(decelerationValue) {
 
 	//	Get Width and Height of texture
 	//	SDL_Point.x --> width
