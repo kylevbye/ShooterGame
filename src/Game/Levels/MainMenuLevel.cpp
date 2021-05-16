@@ -14,7 +14,7 @@ void MainMenuLevel::update(float dt, const KeyStates &keyStates) {
 	if(keyStates.Z_PRESSED) {
 
 		if (selectedOption == Options::BEGIN_GAME) {
-			nextLevelCode = Levels::TITLELEVEL;
+			nextLevelCode = Levels::LOADING_BATTLE;
 		}
 		else if (selectedOption == Options::HOW_TO_PLAY) {
 			nextLevelCode = Levels::INSTRUCTION_MENU;
@@ -122,15 +122,14 @@ MainMenuLevel::MainMenuLevel() : menuMusic(nullptr), gameTitleLabel(nullptr), st
 	menuMusic = loadMusic("res/mus/menumusic.wav");
 
 	//	gameTitleLabel
-	gameTitleLabel = loadLabel(0, 0, "ShooterGame", "res/fnt/MonsterFriendFore.ttf", 30, {255,255,255});
-	int gT, gH;
+	gameTitleLabel = loadLabel("ShooterGame", "res/fnt/MonsterFriendFore.ttf", 30, {255,255,255});
 
 	gameTitleLabel->setCentered(true);
 	gameTitleLabel->setActive(true);
 	screenObjects.push_back(gameTitleLabel);
 
 	//	startLabel
-	startLabel = loadLabel(0, 0, "Begin Game", "res/fnt/DTM-Mono.ttf", 20, {255,255,255});
+	startLabel = loadLabel("Begin Game", "res/fnt/DTM-Mono.ttf", 20, {255,255,255});
 	int sW, sH;
 	TTF_SizeText(startLabel->getFont(), startLabel->getText().c_str(), &sW, &sH);
 	startLabel->setPosition(screenWidth/2-sW/2, screenHeight*(5.f/8.f)-sH/2);
@@ -139,7 +138,7 @@ MainMenuLevel::MainMenuLevel() : menuMusic(nullptr), gameTitleLabel(nullptr), st
 	screenObjects.push_back(startLabel);
 
 	//	instructionLabel
-	instructionLabel = loadLabel(0, 0, "How to Play", "res/fnt/DTM-Mono.ttf", 20, {255,255,255});
+	instructionLabel = loadLabel("How to Play", "res/fnt/DTM-Mono.ttf", 20, {255,255,255});
 	int iW, iH;
 	TTF_SizeText(instructionLabel->getFont(), instructionLabel->getText().c_str(), &iW, &iH);
 	instructionLabel->setPosition(screenWidth/2-iW/2, screenHeight*(5.f/8.f)-iH/2+2*sH);

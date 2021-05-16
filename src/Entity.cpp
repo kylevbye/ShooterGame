@@ -1,6 +1,27 @@
 #include "Entity.h"
 #include <stdio.h>
 
+void Entity::setTexture(SDL_Texture *texture) {
+
+	this->texture = texture;
+
+	//	Get Width and Height of texture
+	//	SDL_Point.x --> width
+	//	SDL_Point.y --> height
+	SDL_Point textureSize;
+	SDL_QueryTexture(texture, nullptr, nullptr, &textureSize.x, &textureSize.y);
+
+	//	Upper left is 0,0 by default
+	currentFrame.x = 0; currentFrame.y = 0;
+	currentFrame.w = textureSize.x; 
+	currentFrame.h = textureSize.y;
+
+	//	Origin is at the center by default
+	setOriginX(currentFrame.w/2.f);
+	setOriginY(currentFrame.h/2.f);
+
+}
+
 std::string Entity::to_string() {
 
 	char buffer[900];
@@ -164,22 +185,9 @@ void Entity::render(SDL_Renderer *renderer) {
 }
 
 Entity::Entity(float x, float y, SDL_Texture *texture, bool activeFlag, bool centeredFlag, Uint8 alpha, float scaleX, float scaleY, float originX, float originY, float angleDeg, SDL_RendererFlip flipSetting, SDL_Color color, float maxSpeed, float decelerationValue)
-	: texture(texture), activeFlag(activeFlag), centeredFlag(centeredFlag), alpha(alpha), scaleX(scaleX), scaleY(scaleY), originX(originX), originY(originY), angleDeg(angleDeg), flipSetting(flipSetting), color(color), positionVector(x,y), velocityVector(0.f, 0.f), accelerationVector(0.f, 0.f), maxSpeed(maxSpeed), decelerationValue(decelerationValue) {
+	: texture(nullptr), activeFlag(activeFlag), centeredFlag(centeredFlag), alpha(alpha), scaleX(scaleX), scaleY(scaleY), originX(originX), originY(originY), angleDeg(angleDeg), flipSetting(flipSetting), color(color), positionVector(x,y), velocityVector(0.f, 0.f), accelerationVector(0.f, 0.f), maxSpeed(maxSpeed), decelerationValue(decelerationValue) {
 
-	//	Get Width and Height of texture
-	//	SDL_Point.x --> width
-	//	SDL_Point.y --> height
-	SDL_Point textureSize;
-	SDL_QueryTexture(texture, nullptr, nullptr, &textureSize.x, &textureSize.y);
-
-	//	Upper left is 0,0 by default
-	currentFrame.x = 0; currentFrame.y = 0;
-	currentFrame.w = textureSize.x; 
-	currentFrame.h = textureSize.y;
-
-	//	Origin is at the center by default
-	setOriginX(currentFrame.w/2.f);
-	setOriginY(currentFrame.h/2.f);
+	setTexture(texture);
 
 }
 

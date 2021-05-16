@@ -22,24 +22,36 @@ int Label::getFontHeight() {
 
 }
 
-void Label::render(SDL_Renderer *renderer) {
-	Entity::render(renderer);
+void Label::setText(std::string text, SDL_Renderer *renderer) {
+
+	this->text = text;
+	SDL_Surface *surface;
+	SDL_Texture *newTexture;
+
+	surface = TTF_RenderText_Solid(font, text.c_str(), color);
+	newTexture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
+	setTexture(newTexture);
+
 }
 
-Label::Label(float x, float y, std::string text, TTF_Font *font, SDL_Surface *surface, SDL_Texture *texture) 
-	: Entity(x, y, texture), text(text), font(font), surface(surface) {}
+Label::Label(std::string text, TTF_Font *font, SDL_Renderer *renderer, float x, float y, SDL_Color color) 
+	: Entity(x, y, nullptr), text(text), font(font) {
+
+		SDL_Surface *tempSurface = TTF_RenderText_Solid(font, text.c_str(), color);
+
+		setTexture(SDL_CreateTextureFromSurface(renderer,tempSurface));
+		SDL_FreeSurface(tempSurface);
+
+	}
 
 Label::~Label() {
 
 	if (font) {
 		TTF_CloseFont(font);
 		font = nullptr;
-
-	}
-
-	if (surface) {
-		SDL_FreeSurface(surface);
-		surface = nullptr;
 	}
 
 }

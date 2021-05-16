@@ -14,7 +14,6 @@ private:
 
 	std::string text;
 	TTF_Font *font;
-	SDL_Surface *surface;
 
 public:
 
@@ -23,9 +22,9 @@ public:
 	std::string getText() { return text; }
 	TTF_Font *getFont() { return font; }
 
-	void render(SDL_Renderer *renderer);
+	void setText(std::string text, SDL_Renderer *renderer);
 
-	Label(float x, float y, std::string text, TTF_Font *font, SDL_Surface *surface, SDL_Texture *texture);
+	Label(std::string text, TTF_Font *font, SDL_Renderer * renderer, float x = 0.f, float y = 0.f, SDL_Color color = {255,255,255});
 
 	///	Destructor
 	~Label();

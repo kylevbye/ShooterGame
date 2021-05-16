@@ -7,15 +7,14 @@
 #include "AssetLoader.h"
 #include "AssetHandler.h"
 #include "Label.h"
-#include <iostream>
 
 float screenWidth, screenHeight;
 SDL_Renderer *asset_renderer;
-Game::GameState gameState;
+Game::GameState *gameState;
 GameWindow *gameWindow;
 LevelHandler levels;
 bool isRunning = true;
-bool isDebugging = false;
+bool isDebugging = true;
 Uint32 totalTicks = 0;
 Uint32 totalFrames = 0;
 float currentFPS = 0.f;
@@ -30,7 +29,7 @@ void terminate();
  */
 int main(int argc, char *args[]) {
 
-	std::cout << "Starting Shooter Game" << std::endl;
+	SDL_Log("Starting Shooter Game...");
 
 	if (initialize() == 1) return 1;
 
@@ -50,17 +49,18 @@ int main(int argc, char *args[]) {
 		//	Update
 		Uint32 current = SDL_GetTicks();
 		float dt = (current-lastUpdate)/1000.f;
-		gameState.update(dt);
-		if (gameState.getCurrentLevel().isDone()) {
-			gameState.loadCurrentLevel(
-				loadLevel(gameState.getCurrentLevel().getNextLevelCode())
+		gameState->update(dt);
+		if (gameState->getCurrentLevel().isDone()) {
+			gameState->loadCurrentLevel(
+				loadLevel(gameState->getCurrentLevel().getNextLevelCode())
 				);
 		}
 		lastUpdate = current;
 
 		//	Render
 		gameWindow->clear();
-		gameState.render();
+		if (isDebugging) gameState->showFPS((int)currentFPS);
+		gameState->render();
 		gameWindow->display();
 
 		//	Random FPS Test
@@ -69,15 +69,12 @@ int main(int argc, char *args[]) {
 		//	End Frame Time
 		float frameTime = (SDL_GetTicks()-startTicks)/1000.f;
 		currentFPS = 1.f/frameTime;
-		if (isDebugging) {
-			std::cout << "FPS = " << currentFPS << std::endl;
-
-		}
 
 	}
 
 	//	Termination Sequence
 	delete gameWindow;
+	delete gameState;
 	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
@@ -129,17 +126,16 @@ int initialize() {
 	}
 
 	screenWidth = 1280; screenHeight = 720;
-	gameWindow = new GameWindow("Shooter", 1280, 720);
+	gameWindow = new GameWindow("ShooterGame", 1280, 720);
 
 	//	Prepare AssetLoader
 	asset_renderer = gameWindow->getRenderer();
 
-	//	FPS Label
-	Label fpsDebugLabel = *loadLabel(0, 0, "000", "res/fnt/DTM-Mono.ttf", 25, {255,255,255}); 
-
 	//	GameState
-	gameState = (gameWindow->getRenderer());
-	gameState.loadCurrentLevel(loadLevel("titleLevel"));
+	gameState = new Game::GameState(gameWindow->getRenderer());
+	gameState->loadCurrentLevel(loadLevel("titleLevel"));
+
+	return 0;
 
 }
 
@@ -152,13 +148,13 @@ void handleInput() {
 		switch (event.type) {
 
 			case SDL_KEYDOWN:
-				gameState.getKeyHandler().handleDownInput(event.key.keysym.sym);
+				gameState->getKeyHandler().handleDownInput(event.key.keysym.sym);
 				if (event.key.keysym.sym == 	
 SDLK_F4) { gameWindow->toggleFullScreen(); }
 				break;
 
 			case SDL_KEYUP:
-				gameState.getKeyHandler().handleUpInput(event.key.keysym.sym);
+				gameState->getKeyHandler().handleUpInput(event.key.keysym.sym);
 				break;
 
 			case SDL_QUIT:
@@ -172,7 +168,7 @@ SDLK_F4) { gameWindow->toggleFullScreen(); }
 
 
 void terminate() {
-	std::cout << "Shooter Game terminated..." << std::endl;
-	std::cout << "Press Enter to Exit..." << std::endl;
-	std::cin.get();
+	SDL_Log("Shooter Game terminated...");
+	SDL_Log("Closing in 500 seconds...");
+	SDL_Delay(500000);
 }

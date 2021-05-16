@@ -28,22 +28,29 @@ Entity *loadEntity(const char *filePath, float x, float y) {
 
 }
 
-Label *loadLabel(float x, float y, std::string text, const char *fontFile, int fontSize, SDL_Color color = {255,255,255}) { 
+AnimatedEntity *loadAnimatedEntity(const char *filePath, int frames, int frameDelay, float x, float y) {
+
+	AnimatedEntity *returnEntity = nullptr;
+
+	//	Create Texture
+	SDL_Texture *texture = loadTexture(filePath);
+
+	//	Create AnimatedEntity
+	returnEntity = new AnimatedEntity(texture, frames, frameDelay);
+
+	return returnEntity;
+
+}
+
+Label *loadLabel(std::string text, const char *fontFile, int fontSize, SDL_Color color, float x, float y) { 
 
 	Label *returnLabel = nullptr;
 
 	//	Create Font
 	TTF_Font *font = TTF_OpenFont(fontFile, fontSize);
 
-	//	Create Surface
-	SDL_Surface *surface = TTF_RenderText_Solid(font,
-        text.c_str(), color);
-
-	//	Create Texture
-	SDL_Texture *texture = SDL_CreateTextureFromSurface(asset_renderer, surface);
-
 	//	Create Label
-	returnLabel = new Label(x, y, text, font, surface, texture);
+	returnLabel = new Label(text, font, asset_renderer, x, y, color);
 
 	return returnLabel;
 
@@ -57,25 +64,28 @@ Game::Level *loadLevel(std::string levelName) {
 		levelCode = Levels::TITLELEVEL;
 	}
 	else if (levelName == "mainMenu") {
-		levelCode == Levels::MAIN_MENU;
+		levelCode = Levels::MAIN_MENU;
 	}
 	else if (levelName == "instructionMenu") {
-		levelCode == Levels::INSTRUCTION_MENU;
+		levelCode = Levels::INSTRUCTION_MENU;
+	}
+	else if (levelName == "loadingBattle") {
+		levelCode = Levels::LOADING_BATTLE;
 	}
 	else if (levelName == "battleDialogue") {
-		levelCode == Levels::BATTLE_DIALOGUE;
+		levelCode = Levels::BATTLE_DIALOGUE;
 	}
 	else if (levelName == "battleIntro") {
-		levelCode == Levels::BATTLE_INTRO;
+		levelCode = Levels::BATTLE_INTRO;
 	}
 	else if (levelName == "battle") {
-		levelCode == Levels::BATTLE;
+		levelCode = Levels::BATTLE;
 	}
 	else if (levelName == "ending") {
-		levelCode == Levels::ENDING;
+		levelCode = Levels::ENDING;
 	}
 	else if (levelName == "gameOver") {
-		levelCode == Levels::GAME_OVER;
+		levelCode = Levels::GAME_OVER;
 	}
 	else {
 		return nullptr;
@@ -110,6 +120,24 @@ Game::Level *loadLevel(Levels levelCode) {
 				levels.instructionLevel = (Game::InstructionLevel *)level;
 			}
 			else level = levels.instructionLevel;
+			break;
+		case Levels::LOADING_BATTLE:
+			if(!levels.loadingBattleLevel) {
+				level = new Game::LoadingBattleLevel();
+				levels.loadingBattleLevel = (Game::LoadingBattleLevel *)level;
+			}
+			else level = levels.loadingBattleLevel;
+			break;
+		case Levels::BATTLE_DIALOGUE:
+			break;
+		case Levels::BATTLE_INTRO:
+			break;
+		case Levels::BATTLE:
+			break;
+		case Levels::ENDING:
+			break;
+		case Levels::GAME_OVER:
+			break;
 		default:
 			break;
 

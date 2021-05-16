@@ -4,6 +4,10 @@ void KeyEventHandler::handleDownInput(int key_sym) {
 
 	switch (key_sym) {
 
+		case SDLK_ESCAPE:
+			keyStates.ESC_DOWN = true;
+			keyStates.ESC_PRESSED = true;
+			break;
 		case SDLK_w:
 			keyStates.W_DOWN = true;
 			keyStates.W_PRESSED = true;
@@ -53,6 +57,9 @@ void KeyEventHandler::handleUpInput(int key_sym) {
 	
 	switch (key_sym) {
 
+		case SDLK_ESCAPE:
+			keyStates.ESC_DOWN = false;
+			break;
 		case SDLK_w:
 			keyStates.W_DOWN = false;
 			break;
@@ -90,6 +97,7 @@ void KeyEventHandler::handleUpInput(int key_sym) {
 
 void KeyEventHandler::resetHandleStates() {
 
+	keyStates.ESC_PRESSED = false;
 	keyStates.W_PRESSED = false;
 	keyStates.A_PRESSED = false;
 	keyStates.S_PRESSED = false;

@@ -4,6 +4,8 @@
 
 struct KeyStates {
 
+	bool ESC_DOWN = false;
+
 	/*
 	 *	Active States
 	 */
@@ -23,6 +25,8 @@ struct KeyStates {
 	/*
 	 *	Handle States
 	 */
+	bool ESC_PRESSED = false;
+
 	//	Movement
 	bool W_PRESSED = false;
 	bool A_PRESSED = false;

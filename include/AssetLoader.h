@@ -6,11 +6,13 @@
 #include <string>
 #include <vector>
 #include "Entity.h"
+#include "AnimatedEntity.h"
 #include "Label.h"
 #include "Game/Level.h"
 #include "Game/Stage.h"
 #include "Game/Levels/TitleLevel.h"
 #include "Game/Levels/MainMenuLevel.h"
+#include "Game/Levels/LoadingBattleLevel.h"
 #include "Sound.h"
 #include "Music.h"
 
@@ -18,6 +20,7 @@
 ///	Forward Declarations
 ///
 class Entity;
+class AnimatedEntity;
 class Label;
 namespace Game {
 	class Level;
@@ -40,9 +43,14 @@ SDL_Texture *loadTexture(const char *filePath);
 Entity *loadEntity(const char *filePath, float x = 0.f, float y = 0.f);
 
 ///
+///	AnimatedEntity Class
+///
+AnimatedEntity *loadAnimatedEntity(const char *filePath, int frames, int frameDelay, float x = 0.f, float y = 0.f);
+
+///
 ///	Label Class
 ///
-Label *loadLabel(float x, float y, std::string text, const char *fontFile, int fontSize, SDL_Color color);
+Label *loadLabel(std::string text = "", const char *fontFile = "res/fnt/DTM-Mono.ttf", int fontSize = 12, SDL_Color color = {255,255,255}, float x = 0.f, float y = 0.f);
 
 ///
 ///	Level Class

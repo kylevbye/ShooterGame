@@ -10,12 +10,10 @@ const float GravityConstant = 9.81f;
 
 class Entity {
 
-private:
+protected:
 
 	SDL_Rect currentFrame;
 	SDL_Texture *texture;
-
-protected:
 
 	bool activeFlag;
 	bool centeredFlag;
@@ -30,6 +28,8 @@ protected:
 	Vector2D velocityVector;
 	Vector2D accelerationVector;
 	float maxSpeed, decelerationValue;
+
+	void setTexture(SDL_Texture *texture);
 
 public:
 

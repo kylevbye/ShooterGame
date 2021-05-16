@@ -65,19 +65,19 @@ Game::TitleLevel::TitleLevel() : Game::Level(), titleLabelFront(nullptr), titleL
 	std::vector<Entity *> screenObjects;
 
 	//	Title Label Front
-	titleLabelFront = loadLabel(0, 0, "Undertale AU", "res/fnt/MonsterFriendFore.ttf", 70, {255,255,255});
+	titleLabelFront = loadLabel("Undertale AU", "res/fnt/MonsterFriendFore.ttf", 70, {255,255,255});
 	titleLabelFront->setCentered(true);
 	titleLabelFront->setActive(false);
 	screenObjects.push_back(titleLabelFront);
 
 	//	Title Label Back
-	titleLabelBack = loadLabel(0, 0, "Undertale AU", "res/fnt/MonsterFriendBack.ttf", 70, {255,255,255});
+	titleLabelBack = loadLabel("Undertale AU", "res/fnt/MonsterFriendBack.ttf", 70, {255,255,255});
 	titleLabelBack->setCentered(true);
 	titleLabelBack->setActive(false);
 	screenObjects.push_back(titleLabelBack);
 
 	//	insLabel
-	instructionLabel = loadLabel(0, 0, "Press Z to Start", "res/fnt/DTM-Mono.ttf", 30, {128,128,128});
+	instructionLabel = loadLabel("Press Z to Start", "res/fnt/DTM-Mono.ttf", 30, {128,128,128});
 	screenObjects.push_back(instructionLabel);
 	instructionLabel->setActive(false);
 	instructionLabel->setCentered(true);
