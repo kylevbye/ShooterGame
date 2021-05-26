@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Debug Folder
+Debug/
+
+# VS 2019
+*.aps
+*.rc
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
