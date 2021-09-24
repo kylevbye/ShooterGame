@@ -2,22 +2,14 @@
 
 using namespace Game;
 
-PlayerController &GameState::getPlayerController() {
-	return this->playerController;
-}
-
 Level &GameState::getCurrentLevel() {
 	return *(this->currentLevel);
 }
 
-void GameState::setRenderer(SDL_Renderer *renderer) {
-	this->renderer = renderer;
-}
-
-void GameState::loadCurrentLevel(Level *newLevel) {
+void GameState::loadCurrentLevel(std::shared_ptr<Game::Level> newLevel) {
 
 	if (newLevel) {
-		currentLevel = newLevel;
+		currentLevel = std::shared_ptr<Game::Level>(newLevel);
 		currentLevel->setup();
 	}
 
@@ -25,14 +17,14 @@ void GameState::loadCurrentLevel(Level *newLevel) {
 
 void GameState::update(float dt) {
 
-	fpsLabel->setActive(false);
+	fpsLabel.setActive(false);
 	
 	if (keyHandler.getKeyStates().ESC_DOWN) {
 		if (lastESCPress == 0) lastESCPress = SDL_GetTicks();
-		escapeLabel->setActive(true);
+		escapeLabel.setActive(true);
 	}
 	else {
-		escapeLabel->setActive(false);
+		escapeLabel.setActive(false);
 		lastESCPress = 0;
 	}
 
@@ -45,19 +37,26 @@ void GameState::update(float dt) {
 		isRunning = false;
 	}
 
+	if (currentLevel->isDone()) {
+		loadCurrentLevel(
+				loadLevel(currentLevel->getNextLevelCode())
+				);
+	}
+
 
 }
 
-void GameState::showFPS(int fps) {
-	fpsLabel->setText(std::to_string(fps), renderer);
-	fpsLabel->setActive(true);
+void GameState::showFPS(Uint32 fps) {
+	fpsLabel.setText(std::to_string(fps));
+	fpsLabel.setActive(true);
 }
 
 void GameState::render() {
 
-	if (!renderer) {
+	if (!asset_renderer) {
 		SDL_Log("Rendering in GameState with a null renderer.");
 		isRunning = false;
+		return;
 	}
 
 	SDL_Rect viewport;
@@ -66,32 +65,18 @@ void GameState::render() {
 	viewport.w = screenWidth;
 	viewport.h = screenHeight;
 
-	SDL_RenderSetViewport(renderer, &viewport);
-	currentLevel->render(renderer);
-	if (escapeLabel && escapeLabel->isActive()) escapeLabel->render(renderer);
-	if (fpsLabel->isActive()) fpsLabel->render(renderer);
+	SDL_RenderSetViewport(asset_renderer, &viewport);
+	currentLevel->render(asset_renderer);
+	if (escapeLabel.isActive()) escapeLabel.render(asset_renderer);
+	if (fpsLabel.isActive()) fpsLabel.render(asset_renderer);
 
 }
 
-Game::GameState::GameState() : renderer(nullptr), escapeLabel(nullptr), lastESCPress(0) {
+Game::GameState::GameState() : currentLevel(loadLevel("titleLevel")), escapeLabel("res/fnt/DTM-Mono.ttf", " Quiting...", 20), fpsLabel("res/fnt/DTM-Mono.ttf","", 20),  lastESCPress(0) {
+	escapeLabel.setActive(false);
+	escapeLabel.setCentered(false);
+	fpsLabel.setActive(false);
+	fpsLabel.setCentered(false);
 }
 
-Game::GameState::GameState(SDL_Renderer *renderer) : renderer(renderer), escapeLabel(nullptr), fpsLabel(nullptr),  lastESCPress(0) {
-	escapeLabel = loadLabel(" Quiting...", "res/fnt/DTM-Mono.ttf", 20);
-	escapeLabel->setActive(false);
-	escapeLabel->setCentered(false);
-
-	fpsLabel = loadLabel("", "res/fnt/DTM-Mono.ttf", 20);
-	fpsLabel->setActive(false);
-	fpsLabel->setCentered(false);
-}
-
-Game::GameState::~GameState() {
-
-	delete escapeLabel;
-	delete fpsLabel;
-
-	escapeLabel = nullptr;
-	fpsLabel = nullptr;
-
-}
+Game::GameState::~GameState() {}

@@ -4,6 +4,7 @@
 #include "Label.h"
 #include "Sound.h"
 #include "AssetLoader.h"
+#include "KeyEventHandler.h"
 
 namespace Game {
 	class Level;
@@ -16,7 +17,7 @@ private:
 
 	Sound *knifeSlashSound;
 	Sound *damageSound;
-	AnimatedEntity *knifeEntity;
+	AnimatedEntity knifeEntity;
 
 public:
 
@@ -29,6 +30,6 @@ public:
 	LoadingBattleLevel();
 
 	//	Destructor
-	~LoadingBattleLevel();
+	virtual ~LoadingBattleLevel();
 
 };

@@ -1,28 +1,6 @@
 #include "Entity.h"
-#include <stdio.h>
 
-void Entity::setTexture(SDL_Texture *texture) {
-
-	this->texture = texture;
-
-	//	Get Width and Height of texture
-	//	SDL_Point.x --> width
-	//	SDL_Point.y --> height
-	SDL_Point textureSize;
-	SDL_QueryTexture(texture, nullptr, nullptr, &textureSize.x, &textureSize.y);
-
-	//	Upper left is 0,0 by default
-	currentFrame.x = 0; currentFrame.y = 0;
-	currentFrame.w = textureSize.x; 
-	currentFrame.h = textureSize.y;
-
-	//	Origin is at the center by default
-	setOriginX(currentFrame.w/2.f);
-	setOriginY(currentFrame.h/2.f);
-
-}
-
-std::string Entity::to_string() {
+/*std::string Entity::to_string() {
 
 	char buffer[900];
 
@@ -38,6 +16,41 @@ std::string Entity::to_string() {
 
 	return buffer;
 
+}*/
+
+///
+///	Getters
+///
+
+bool Entity::isActive() { return activeFlag; }
+bool Entity::isCentered() { return centeredFlag; }
+Vector2D &Entity::getPosition() { return position; }
+float Entity::getX() { return position.x; }
+float Entity::getY() { return position.y; }
+Uint8 Entity::getAlpha() { return alpha; }
+float Entity::getScaleX() { return scaleX; }
+float Entity::getScaleY() { return scaleY; }
+float Entity::getOriginX() { return originX; }
+float Entity::getOriginY() { return originY; }
+float Entity::getAngleDeg() { return angleDeg; }
+SDL_Color &Entity::getColor() { return color; }
+SDL_Rect &Entity::getCurrentFrame() { return currentFrame; }
+SDL_Texture *Entity::getTexture() { return texture; }
+
+///
+///	Setters
+///
+
+void Entity::setX(float x) {
+	this->position.x = x;
+}
+
+void Entity::setY(float y) {
+	this->position.y = y;
+}
+
+void Entity::setPosition(float x, float y) {
+	setX(x); setY(y);
 }
 
 void Entity::setActive(bool activeFlag) {
@@ -46,32 +59,6 @@ void Entity::setActive(bool activeFlag) {
 
 void Entity::setCentered(bool centeredFlag) {
 	this->centeredFlag = centeredFlag;
-}
-
-void Entity::setX(float x) {
-	positionVector.x = x;
-}
-
-void Entity::setY(float y) {
-	positionVector.y = y;
-}
-
-void Entity::setVelocityX(float vX) {
-	velocityVector.x = vX;
-}
-
-void Entity::setVelocityY(float vY) {
-	velocityVector.y = vY;
-}
-
-void Entity::setVelocity(float vX, float vY) {
-	setVelocityX(vX);
-	setVelocityY(vY);
-}
-
-void Entity::setPosition(float x, float y) {
-	setX(x);
-	setY(y);
 }
 
 void Entity::setAlpha(Uint8 alpha) {
@@ -87,13 +74,19 @@ void Entity::setScaleY(float scaleY) {
 }
 
 void Entity::setScale(float scale) {
-	setScaleX(scale); 
-	setScaleY(scale);
+	setScaleX(scale); setScaleY(scale);
+}
+
+void Entity::setOriginX(float originX) { 
+	this->originX = originX; 
+}
+
+void Entity::setOriginY(float originY) { 
+	this->originY = originY; 
 }
 
 void Entity::setOrigin(float originX, float originY) {
-	setOriginX(originX);
-	setOriginY(originY);
+	setOriginX(originX); setOriginY(originY);
 }
 
 void Entity::setAngleDeg(float angleDeg) { 
@@ -104,49 +97,12 @@ void Entity::setColor(SDL_Color color) {
 	this->color = color;
 }
 
-void Entity::setMaxSpeed(float speedValue) { 
-	if (speedValue >= 0) {
-		this->maxSpeed = speedValue; 
-	}
-}
 
-void Entity::setSpeed(float speedValue) {
-	if (velocityVector.magnitude() == 0.f) {
-		velocityVector.x = speedValue;
-	}
-	else velocityVector.setMagnitude(speedValue);
-}
+///
+///	Functions
+///
 
-void Entity::applyPhysics(float dt) {
-
-	float speed = 0.f;
-
-	//	Applying Acceleration
-	velocityVector.x += accelerationVector.x*dt;
-	velocityVector.y += accelerationVector.y*dt;
-
-	//	Applying Decel (if needed)
-	if (accelerationVector.magnitude() == 0.f) {
-		speed -= decelerationValue*dt;
-	}
-
-	//	Bound Speed
-	speed = Math::clamp(speed, 0.f, maxSpeed);
-	setSpeed(speed);
-
-	//	Apply Motion
-	positionVector.x += velocityVector.x*dt;
-	positionVector.y += velocityVector.y*dt;
-
-	//	Reset Accel
-	accelerationVector.x = 0.f;
-	accelerationVector.y = 0.f;
-
-}
-
-void Entity::update(float dt) {
-	applyPhysics(dt);
-}
+void Entity::update(float dt) {}
 
 void Entity::render(SDL_Renderer *renderer) {
 
@@ -160,8 +116,8 @@ void Entity::render(SDL_Renderer *renderer) {
 
 	///	Apply Scaling
 	SDL_Rect destination;
-	destination.x = positionVector.x; 
-	destination.y = positionVector.y;
+	destination.x = position.x; 
+	destination.y = position.y;
 	destination.w = currentFrame.w * scaleX; 
 	destination.h = currentFrame.h * scaleY;
 
@@ -184,12 +140,75 @@ void Entity::render(SDL_Renderer *renderer) {
 
 }
 
-Entity::Entity(float x, float y, SDL_Texture *texture, bool activeFlag, bool centeredFlag, Uint8 alpha, float scaleX, float scaleY, float originX, float originY, float angleDeg, SDL_RendererFlip flipSetting, SDL_Color color, float maxSpeed, float decelerationValue)
+/*Entity::Entity(float x, float y, SDL_Texture *texture, bool activeFlag, bool centeredFlag, Uint8 alpha, float scaleX, float scaleY, float originX, float originY, float angleDeg, SDL_RendererFlip flipSetting, SDL_Color color, float maxSpeed, float decelerationValue)
 	: texture(nullptr), activeFlag(activeFlag), centeredFlag(centeredFlag), alpha(alpha), scaleX(scaleX), scaleY(scaleY), originX(originX), originY(originY), angleDeg(angleDeg), flipSetting(flipSetting), color(color), positionVector(x,y), velocityVector(0.f, 0.f), accelerationVector(0.f, 0.f), maxSpeed(maxSpeed), decelerationValue(decelerationValue) {
 
 	setTexture(texture);
 
+}*/
+
+///
+///	Constructors
+///
+
+Entity::Entity(const char *filePath, float x, float y, SDL_Color color) : texture(nullptr), position(x,y), activeFlag(true), centeredFlag(false), alpha(255), scaleX(1.f), scaleY(1.f), originX(0.f), originY(0.f), angleDeg(0.f), flipSetting(SDL_FLIP_NONE), color(color) {
+
+	SDL_Texture *tempTexture = IMG_LoadTexture(asset_renderer, filePath);
+
+	//	Log if texture fails to load.
+	if (!tempTexture) {
+		SDL_Log("Unable to init load texture at {%s}: %s", filePath, SDL_GetError());
+	}
+
+	this->texture = tempTexture;
+
+	if (texture) {
+		//	Get Width and Height of texture
+		//	SDL_Point.x --> width
+		//	SDL_Point.y --> height
+		SDL_Point textureSize;
+		SDL_QueryTexture(texture, nullptr, nullptr, &textureSize.x, &textureSize.y);
+
+		//	Upper left is 0,0 by default
+		currentFrame.x = 0; currentFrame.y = 0;
+		currentFrame.w = textureSize.x; 
+		currentFrame.h = textureSize.y;
+
+	}
+
 }
+
+Entity::Entity(SDL_Texture *texture, float x, float y, SDL_Color color) 
+	: texture(texture), position(x,y), activeFlag(true), centeredFlag(false), alpha(255), scaleX(1.f), scaleY(1.f), originX(0.f), originY(0.f), angleDeg(0.f), flipSetting(SDL_FLIP_NONE), color(color) {
+
+	if (texture) {
+		//	Get Width and Height of texture
+		//	SDL_Point.x --> width
+		//	SDL_Point.y --> height
+		SDL_Point textureSize;
+		SDL_QueryTexture(texture, nullptr, nullptr, &textureSize.x, &textureSize.y);
+
+		//	Upper left is 0,0 by default
+		currentFrame.x = 0; currentFrame.y = 0;
+		currentFrame.w = textureSize.x; 
+		currentFrame.h = textureSize.y;
+	}
+
+}
+
+/*Entity::Entity(const Entity &other)
+	: currentFrame(other.currentFrame), texture(nullptr),
+	centeredFlag(other.centeredFlag), alpha(other.alpha), 
+	scaleX(other.scaleX), scaleY(other.scaleY), originX(other.originX), originY(other.originY), angleDeg(other.angleDeg), flipSetting(other.flipSetting), color(other.color), positionVector(other.positionVector), velocityVector(other.velocityVector), accelerationVector(other.accelerationVector), maxSpeed(other.maxSpeed), decelerationValue(other.decelerationValue) {
+
+	texture = other.texture;
+
+}
+
+Entity::Entity(Entity &&other) {
+
+}
+*/
 
 Entity::~Entity() {
 
@@ -197,5 +216,5 @@ Entity::~Entity() {
 		SDL_DestroyTexture(texture);
 		texture = nullptr;
 	}
-
 }
+

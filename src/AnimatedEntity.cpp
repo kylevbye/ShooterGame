@@ -1,5 +1,9 @@
 #include "AnimatedEntity.h"
 
+///
+///	Setters
+///
+
 void AnimatedEntity::setLooping(bool loopingFlag) {
 	this->looping = loopingFlag;
 }
@@ -8,6 +12,10 @@ void AnimatedEntity::setDone(bool doneFlag) {
 	this->done = doneFlag;
 	frameCount = 0;
 }
+
+///
+///	Functions
+///
 
 void AnimatedEntity::update(float dt) {
 
@@ -36,11 +44,13 @@ void AnimatedEntity::update(float dt) {
 
 }
 
-AnimatedEntity::AnimatedEntity(SDL_Texture *texture, int frames, int frameDelay, float x, float y, bool activeFlag, bool centeredFlag, Uint8 alpha, float scaleX, float scaleY, float originX, float originY, float angleDeg, SDL_RendererFlip flipSetting, SDL_Color color, float maxSpeed, float decelerationValue) 
-	: Entity(x, y, texture, activeFlag, centeredFlag, alpha, scaleX, scaleY, originX, originY, angleDeg, flipSetting, color, maxSpeed, decelerationValue), 
-	frameCount(0), frames(frames), frameDelay(frameDelay), looping(true), done(false), lastFrameUpdate(SDL_GetTicks()) {
-		
-		setTexture(texture);
-		currentFrame.h /= frames;
+///
+///	Constructors
+///
 
-	}
+
+AnimatedEntity::AnimatedEntity(const char *filePath, int frames, int frameDelay, float x, float y, SDL_Color color)
+	: MobileEntity(filePath, x, y, color), frames(frames), frameDelay(frameDelay), looping(true), done(false), lastFrameUpdate(SDL_GetTicks()) {
+
+	currentFrame.h /= frames;
+}

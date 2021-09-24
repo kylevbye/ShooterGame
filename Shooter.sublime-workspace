@@ -4,15 +4,159 @@
 		"selected_items":
 		[
 			[
-				"te",
-				"text"
+				"p",
+				"particles"
 			],
 			[
-				"frame",
-				"frameCount"
+				"parti",
+				"particles"
+			],
+			[
+				"pa",
+				"particle"
+			],
+			[
+				"re",
+				"returnLevel"
+			],
+			[
+				"le",
+				"levelName"
+			],
+			[
+				"c",
+				"current"
+			],
+			[
+				"gam",
+				"gameState"
+			],
+			[
+				"st",
+				"stages"
+			],
+			[
+				"SDL",
+				"SDL_Log"
+			],
+			[
+				"sw",
+				"screenWidth"
+			],
+			[
+				"ori",
+				"originY"
+			],
+			[
+				"tem",
+				"tempTexture"
+			],
+			[
+				"te",
+				"texture"
+			],
+			[
+				"lo",
+				"looping"
+			],
+			[
+				"fr",
+				"frameDelay"
+			],
+			[
+				"Mo",
+				"MobileEntity"
+			],
+			[
+				"s",
+				"speedValue"
+			],
+			[
+				"se",
+				"setVelocityY"
+			],
+			[
+				"set",
+				"setVelocityX"
+			],
+			[
+				"ma",
+				"maxSpeed"
+			],
+			[
+				"cl",
+				"color"
+			],
+			[
+				"or",
+				"originY"
+			],
+			[
+				"sc",
+				"scaleY"
+			],
+			[
+				"del",
+				"deleteCount"
+			],
+			[
+				"de",
+				"deleteCount"
+			],
+			[
+				"alo",
+				"allocationCount"
+			],
+			[
+				"dama",
+				"damageSound"
 			],
 			[
 				"fra",
+				"frameDelay"
+			],
+			[
+				"SDL_",
+				"SDL_GetTicks"
+			],
+			[
+				"upd",
+				"update"
+			],
+			[
+				"knif",
+				"knifeEntity"
+			],
+			[
+				"kni",
+				"knifeEntity"
+			],
+			[
+				"sdl",
+				"SDL_GetTicks"
+			],
+			[
+				"up",
+				"update"
+			],
+			[
+				"done",
+				"doneFlag"
+			],
+			[
+				"kin",
+				"knifeSlashSound"
+			],
+			[
+				"kn",
+				"knifeEntity"
+			],
+			[
+				"knife",
+				"knifeSlashSound"
+			],
+			[
+				"frame",
 				"frameCount"
 			],
 			[
@@ -20,24 +164,8 @@
 				"asgore"
 			],
 			[
-				"sc",
-				"screenObjects"
-			],
-			[
-				"re",
-				"returnEntity"
-			],
-			[
-				"fr",
-				"frames"
-			],
-			[
 				"fram",
 				"frameSpace"
-			],
-			[
-				"ori",
-				"originY"
 			],
 			[
 				"cur",
@@ -92,10 +220,6 @@
 				"levels"
 			],
 			[
-				"upd",
-				"updateEvents"
-			],
-			[
 				"Ins",
 				"InstructionLevel"
 			],
@@ -106,14 +230,6 @@
 			[
 				"par",
 				"particles"
-			],
-			[
-				"pa",
-				"particles"
-			],
-			[
-				"parti",
-				"particle"
 			],
 			[
 				"en",
@@ -160,10 +276,6 @@
 				"TitleLevel"
 			],
 			[
-				"or",
-				"originX"
-			],
-			[
 				"dec",
 				"decelerationValue"
 			],
@@ -188,10 +300,6 @@
 				"gameTitleLabel"
 			],
 			[
-				"st",
-				"startLabel"
-			],
-			[
 				"T",
 				"TitleLevel"
 			],
@@ -212,16 +320,8 @@
 				"titleLabelFront"
 			],
 			[
-				"le",
-				"levelCode"
-			],
-			[
 				"TIT",
 				"TitleScreen"
-			],
-			[
-				"SDL",
-				"SDL_GetTicks"
 			],
 			[
 				"v",
@@ -246,10 +346,6 @@
 			[
 				"ret",
 				"returnMusic"
-			],
-			[
-				"c",
-				"c_str"
 			],
 			[
 				"t",
@@ -372,10 +468,6 @@
 				"returnLabel"
 			],
 			[
-				"s",
-				"surface"
-			],
-			[
 				"font",
 				"fontSize"
 			],
@@ -422,22 +514,6 @@
 			[
 				"angle",
 				"angleType"
-			],
-			[
-				"Vecto",
-				"Vector2D"
-			],
-			[
-				"Vec",
-				"Vector2D"
-			],
-			[
-				"Ver",
-				"Vector2D"
-			],
-			[
-				"e",
-				"entity"
 			]
 		]
 	},
@@ -501,29 +577,39 @@
 	},
 	"file_history":
 	[
-		"/C/Users/byekv/source/c++/Shooter/include/Game/Levels/InstructionLevel.h",
-		"/C/Users/byekv/source/c++/Shooter/src/Game/GameState.cpp",
-		"/C/Users/byekv/source/c++/Shooter/src/Entity.cpp",
-		"/C/Users/byekv/source/c++/Shooter/include/AssetLoader.h",
-		"/C/Users/byekv/source/c++/Shooter/src/KeyEventHandler.cpp",
+		"/C/Users/byekv/source/c++/Shooter/include/MobileEntity.h",
+		"/C/Users/byekv/source/c++/Shooter/include/Game/Levels/TitleLevel.h",
+		"/C/Users/byekv/source/c++/Shooter/include/Game/Stage.h",
+		"/C/Users/byekv/source/c++/Shooter/include/Game/Level.h",
+		"/C/Users/byekv/source/c++/Shooter/src/MobileEntity.cpp",
+		"/C/Users/byekv/source/c++/Shooter/include/Game/GameState.h",
+		"/C/Users/byekv/source/c++/Shooter/include/Game/Levels/LoadingBattleLevel.h",
+		"/C/Users/byekv/source/c++/Shooter/include/AnimatedEntity.h",
+		"/C/Users/byekv/source/c++/Shooter/src/Game/Levels/InstructionLevel.cpp",
 		"/C/Users/byekv/source/c++/Shooter/src/Game/Levels/TitleLevel.cpp",
-		"/C/Users/byekv/source/c++/Shooter/src/AssetHandler.cpp",
-		"/C/Users/byekv/source/c++/Shooter/include/Entity.h",
+		"/C/Users/byekv/source/c++/Shooter/include/Game/Levels/InstructionLevel.h",
+		"/C/Users/byekv/source/c++/Shooter/include/AssetLoader.h",
 		"/C/Users/byekv/source/c++/Shooter/include/GameWindow.h",
-		"/C/Users/byekv/source/c++/Shooter/src/GameWindow.cpp",
-		"/C/Users/byekv/source/c++/Shooter/src/Label.cpp",
-		"/C/Users/byekv/source/c++/Shooter/include/Label.h",
-		"/C/Users/byekv/source/c++/Shooter/src/AssetLoader.cpp",
 		"/C/Users/byekv/source/c++/Shooter/include/AssetHandler.h",
+		"/C/Users/byekv/source/c++/Shooter/src/Game/GameState.cpp",
+		"/C/Users/byekv/source/c++/Shooter/src/Label.cpp",
+		"/C/Users/byekv/source/c++/Shooter/src/Game/Levels/LoadingBattleLevel.cpp",
+		"/C/Users/byekv/source/c++/Shooter/src/AssetLoader.cpp",
+		"/C/Users/byekv/source/c++/Shooter/include/Game/Levels/MainMenuLevel.h",
+		"/C/Users/byekv/source/c++/Shooter/src/Game/Stage.cpp",
+		"/C/Users/byekv/source/c++/Shooter/src/PlayerController.cpp",
+		"/C/Users/byekv/source/c++/Shooter/include/Label.h",
+		"/C/Users/byekv/source/c++/Shooter/include/Entity.h",
+		"/C/Users/byekv/source/c++/Shooter/src/Game/Levels/MainMenuLevel.cpp",
+		"/C/Users/byekv/source/c++/Shooter/include/PlayerController.h",
+		"/C/Users/byekv/source/c++/Shooter/src/Entity.cpp",
+		"/C/Users/byekv/source/c++/Shooter/src/KeyEventHandler.cpp",
+		"/C/Users/byekv/source/c++/Shooter/src/AssetHandler.cpp",
+		"/C/Users/byekv/source/c++/Shooter/src/GameWindow.cpp",
 		"/C/Users/byekv/source/c++/Shooter/include/KeyEventHandler.h",
 		"/C/Users/byekv/source/c++/Shooter/include/Game/Music.h",
-		"/C/Users/byekv/source/c++/Shooter/include/Game/Level.h",
 		"/C/Users/byekv/source/c++/Shooter/include/Game/TitleLevel.h",
 		"/C/Users/byekv/source/c++/Shooter/src/Game/Level.cpp",
-		"/C/Users/byekv/source/c++/Shooter/src/Game/Stage.cpp",
-		"/C/Users/byekv/source/c++/Shooter/include/Game/Stage.h",
-		"/C/Users/byekv/source/c++/Shooter/src/PlayerController.cpp",
-		"/C/Users/byekv/source/c++/Shooter/include/PlayerController.h",
 		"/C/Users/byekv/source/c++/Shooter/include/ScreenObject.h",
 		"/C/Users/byekv/source/c++/Shooter/include/Stage.h",
 		"/C/Users/byekv/source/c++/Shooter/include/Math.h",
@@ -531,13 +617,14 @@
 	],
 	"find":
 	{
-		"height": 46.0
+		"height": 41.0
 	},
 	"find_in_files":
 	{
 		"height": 116.0,
 		"where_history":
 		[
+			"<open folders>"
 		]
 	},
 	"find_state":
@@ -545,6 +632,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"AssetHandler",
+			"AssetLoader",
+			"isRunning",
+			">());\n",
+			"scale",
+			"}\n",
+			"maxspeed",
+			";\n",
+			"\t\n",
+			"Entity",
+			"\t\n",
 			"InstructionLevel.cpp",
 			"\t\n",
 			");\n",
@@ -571,7 +669,7 @@
 	},
 	"incremental_find":
 	{
-		"height": 36.0
+		"height": 29.0
 	},
 	"input":
 	{
@@ -609,7 +707,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 214.0
+		"height": 137.0
 	},
 	"output.find_results":
 	{
@@ -618,7 +716,7 @@
 	"pinned_build_system": "",
 	"replace":
 	{
-		"height": 68.0
+		"height": 54.0
 	},
 	"save_all_on_build": true,
 	"select_file":

@@ -17,7 +17,7 @@ void Game::Level::updateEvents(Uint32 time, float dt) {}
 void Game::Level::render(SDL_Renderer *renderer) {
 
 	for (Stage *stage : stages) {
-		stage->render(renderer);
+		if (stage) stage->render(renderer);
 	}
 
 }
@@ -33,5 +33,10 @@ Game::Level::Level() : startTime(SDL_GetTicks()), done(false), nextLevelCode(Lev
 }
 
 Game::Level::~Level() {
+	for (Stage *stage : stages) {
+		if (stage) delete stage;
+		stage = nullptr;
+	}
+	stages.clear();
 
 }

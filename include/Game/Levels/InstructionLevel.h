@@ -7,11 +7,10 @@
 #include "AnimatedEntity.h"
 #include "InstructionLevel.h"
 #include "AssetLoader.h"
+#include "KeyEventHandler.h"
 
 ///	Forward Declarations
 class Music;
-class Label;
-class AnimatedEntity;
 namespace Game {
 	class Level;
 	class InstructionLevel;
@@ -21,11 +20,11 @@ class Game::InstructionLevel : public Game::Level {
 
 private:
 
-	AnimatedEntity *asgore;
+	AnimatedEntity asgore;
 	Music *instructionMusic;
-	Label *titleLabel;
+	Label titleLabel;
 	std::vector<Label *> instructionLabels;
-	Label *doneLabel;
+	Label doneLabel;
 	int alpha;
 	bool fadeIn;
 
@@ -40,6 +39,6 @@ public:
 	InstructionLevel();
 
 	//	Destructor
-	~InstructionLevel();
+	virtual ~InstructionLevel();
 
 };

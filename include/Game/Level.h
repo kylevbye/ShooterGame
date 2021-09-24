@@ -3,12 +3,12 @@
 #include <SDL2/SDL.h>
 #include "Game/Stage.h"
 #include "KeyEventHandler.h"
+#include "Entity.h"
 
 ///
 ///	Forward Declarations
 ///
 
-class Entity; 
 struct KeyStates;
 
 namespace Game {

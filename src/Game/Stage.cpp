@@ -7,7 +7,7 @@ void Stage::setActive(bool activeFlag) {
 }
 
 
-std::string Stage::to_string() {
+/*std::string Stage::to_string() {
 
 	std::string returnString = "[";
 
@@ -40,7 +40,7 @@ std::string Stage::to_string() {
 	returnString += "]";
 
 	return returnString;
-}
+}*/
 
 void Stage::addScreenObject(Entity *screenObject) {
 	//	Avoid adding duplicate screen object.
@@ -61,9 +61,8 @@ void Stage::update(float dt) {
 }
 
 void Stage::render(SDL_Renderer *renderer) {
-	cleanUp();
 	for (Entity *screenObject : screenObjects) {
-		screenObject->render(renderer);
+		if (screenObject) screenObject->render(renderer);
 	}
 }
 
@@ -72,14 +71,6 @@ Stage::Stage() : activeFlag(true) {}
 Stage::~Stage() {
 
 	//	Clean Up screenObjects
-	for (Entity *entity : screenObjects) {
-
-		if (entity) {
-			delete entity;
-			entity = nullptr;
-		}
-
-	}
 }
 
 int Stage::findIndexOfScreenObject(Entity *screenObject) {
@@ -98,10 +89,4 @@ int Stage::findIndexOfScreenObject(Entity *screenObject) {
 	#pragma GCC diagnostic pop
 
 	return index;
-}
-
-void Stage::cleanUp() {
-	for (Entity *screenObject : screenObjects) {
-		if (!screenObject) removeScreenObject(screenObject);
-	}
 }

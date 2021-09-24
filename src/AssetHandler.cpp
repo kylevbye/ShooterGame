@@ -1,5 +1,6 @@
 #include "AssetHandler.h"
 
+/*
 void cleanupLevels(LevelHandler &levelHandler) {
 
 	//	Delete
@@ -14,4 +15,4 @@ void cleanupLevels(LevelHandler &levelHandler) {
 	levelHandler.instructionLevel = nullptr;
 	levelHandler.loadingBattleLevel = nullptr;
 
-}
+}*/

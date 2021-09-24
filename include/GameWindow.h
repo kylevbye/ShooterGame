@@ -8,6 +8,8 @@
 class Entity;
 class Renderer;
 
+
+
 class GameWindow : public Renderer {
 
 private:

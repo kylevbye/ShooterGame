@@ -50,6 +50,8 @@ namespace Math {
 		Vector2D(const Vector2D &other);
 		Vector2D(float x, float y);
 
+		virtual ~Vector2D() {}
+
 	};
 
 }

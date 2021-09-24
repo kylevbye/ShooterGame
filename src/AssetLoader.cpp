@@ -14,7 +14,7 @@ SDL_Texture *loadTexture(const char *filePath) {
 
 }
 
-Entity *loadEntity(const char *filePath, float x, float y) {
+/*Entity *loadEntity(const char *filePath, float x, float y) {
 
 	Entity *returnEntity = nullptr;
 
@@ -26,9 +26,9 @@ Entity *loadEntity(const char *filePath, float x, float y) {
 
 	return returnEntity;
 
-}
+}*/
 
-AnimatedEntity *loadAnimatedEntity(const char *filePath, int frames, int frameDelay, float x, float y) {
+/*AnimatedEntity *loadAnimatedEntity(const char *filePath, int frames, int frameDelay, float x, float y) {
 
 	AnimatedEntity *returnEntity = nullptr;
 
@@ -40,9 +40,9 @@ AnimatedEntity *loadAnimatedEntity(const char *filePath, int frames, int frameDe
 
 	return returnEntity;
 
-}
+}*/
 
-Label *loadLabel(std::string text, const char *fontFile, int fontSize, SDL_Color color, float x, float y) { 
+/*Label *loadLabel(std::string text, const char *fontFile, int fontSize, SDL_Color color, float x, float y) { 
 
 	Label *returnLabel = nullptr;
 
@@ -54,96 +54,75 @@ Label *loadLabel(std::string text, const char *fontFile, int fontSize, SDL_Color
 
 	return returnLabel;
 
-}
+}*/
 
-Game::Level *loadLevel(std::string levelName) {
+std::shared_ptr<Game::Level> loadLevel(const char *levelName) {
 
 	Levels levelCode;
 
-	if (levelName == "titleLevel") {
+	if (strcmp("titleLevel", levelName) == 0) {
 		levelCode = Levels::TITLELEVEL;
 	}
-	else if (levelName == "mainMenu") {
+	else if (strcmp("mainMenu", levelName) == 0) {
 		levelCode = Levels::MAIN_MENU;
 	}
-	else if (levelName == "instructionMenu") {
+	else if (strcmp("instructionMenu", levelName) == 0) {
 		levelCode = Levels::INSTRUCTION_MENU;
 	}
-	else if (levelName == "loadingBattle") {
+	else if (strcmp("loadingBattle", levelName) == 0) {
 		levelCode = Levels::LOADING_BATTLE;
 	}
-	else if (levelName == "battleDialogue") {
+	else if (strcmp("battleDialogue", levelName) == 0) {
 		levelCode = Levels::BATTLE_DIALOGUE;
 	}
-	else if (levelName == "battleIntro") {
+	else if (strcmp("battleIntro", levelName) == 0) {
 		levelCode = Levels::BATTLE_INTRO;
 	}
-	else if (levelName == "battle") {
+	else if (strcmp("battle", levelName) == 0) {
 		levelCode = Levels::BATTLE;
 	}
-	else if (levelName == "ending") {
+	else if (strcmp("ending", levelName) == 0) {
 		levelCode = Levels::ENDING;
 	}
-	else if (levelName == "gameOver") {
+	else if (strcmp("gameOver", levelName) == 0) {
 		levelCode = Levels::GAME_OVER;
 	}
 	else {
-		return nullptr;
+		
+		SDL_Log("loadLevel(std::string) was passed with %s", levelName);
+
 	}
 
 	return loadLevel(levelCode);
 
 }
 
-Game::Level *loadLevel(Levels levelCode) {
-
-	Game::Level *level = nullptr;
+std::shared_ptr<Game::Level> loadLevel(Levels levelCode) {
 
 	switch (levelCode) {
+
 		case Levels::TITLELEVEL:
-			if (!levels.titleLevel) {
-				level = new Game::TitleLevel();
-				levels.titleLevel = (Game::TitleLevel *)level;
-			}
-			else level = levels.titleLevel;
-			break;
+			return std::move(std::make_shared<Game::TitleLevel>());
 		case Levels::MAIN_MENU:
-			if (!levels.mainMenuLevel) {
-				level = new Game::MainMenuLevel();
-				levels.mainMenuLevel = (Game::MainMenuLevel *)level;
-			}
-			else level = levels.mainMenuLevel;
-			break;
+			return std::move(std::make_shared<Game::MainMenuLevel>());
 		case Levels::INSTRUCTION_MENU:
-			if(!levels.instructionLevel) {
-				level = new Game::InstructionLevel();
-				levels.instructionLevel = (Game::InstructionLevel *)level;
-			}
-			else level = levels.instructionLevel;
-			break;
+			return std::move(std::make_shared<Game::InstructionLevel>());
 		case Levels::LOADING_BATTLE:
-			if(!levels.loadingBattleLevel) {
-				level = new Game::LoadingBattleLevel();
-				levels.loadingBattleLevel = (Game::LoadingBattleLevel *)level;
-			}
-			else level = levels.loadingBattleLevel;
-			break;
+			return std::move(std::make_shared<Game::LoadingBattleLevel>());
 		case Levels::BATTLE_DIALOGUE:
-			break;
+			return std::move(std::make_shared<Game::TitleLevel>());
 		case Levels::BATTLE_INTRO:
-			break;
+			return std::move(std::make_shared<Game::TitleLevel>());
 		case Levels::BATTLE:
-			break;
+			return std::move(std::make_shared<Game::TitleLevel>());
 		case Levels::ENDING:
-			break;
+			return std::move(std::make_shared<Game::TitleLevel>());
 		case Levels::GAME_OVER:
-			break;
+			return std::move(std::make_shared<Game::TitleLevel>());
 		default:
-			break;
+			return std::move(std::make_shared<Game::TitleLevel>());
 
 	}
-
-	return level;
 
 }
 

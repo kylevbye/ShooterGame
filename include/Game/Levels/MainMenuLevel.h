@@ -3,7 +3,10 @@
 #include "Label.h"
 #include "Sound.h"
 #include "Music.h"
+#include "Entity.h"
 #include "AssetLoader.h"
+#include "KeyEventHandler.h"
+#include <memory>
 
 namespace Game {
 	class Level;
@@ -19,12 +22,12 @@ class Game::MainMenuLevel : public Game::Level {
 private:
 
 	Music *menuMusic;
-	Label *gameTitleLabel;
-	Label *startLabel;
-	Label *instructionLabel;
-	std::vector<Entity *> particles;
+	Label gameTitleLabel;
+	Label startLabel;
+	Label instructionLabel;
+	std::vector<MobileEntity *> particles;
 	Options selectedOption;
-	Entity *asgoreEntity;
+	Entity asgoreEntity;
 	int alpha;
 	bool fadeIn;
 
@@ -39,7 +42,7 @@ public:
 	MainMenuLevel();
 
 	///	Destructor
-	~MainMenuLevel();
+	virtual ~MainMenuLevel();
 
 
 };

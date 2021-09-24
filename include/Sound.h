@@ -27,6 +27,6 @@ public:
 	Sound(Mix_Chunk *sound, int volume);
 
 	//	Destructor
-	~Sound();
+	virtual ~Sound();
 
 };

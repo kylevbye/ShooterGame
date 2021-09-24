@@ -1,14 +1,19 @@
 #pragma once
 #include <SDL2/SDL_ttf.h>
 #include "Entity.h"
+#include "MobileEntity.h"
+#include <string>
+
+extern SDL_Renderer *asset_renderer;
 
 
 ///
 ///	Forward Declarations
 ///
-class Entity;
 
-class Label : public Entity {
+class MobileEntity;
+
+class Label : public MobileEntity {
 
 private:
 
@@ -22,11 +27,19 @@ public:
 	std::string getText() { return text; }
 	TTF_Font *getFont() { return font; }
 
-	void setText(std::string text, SDL_Renderer *renderer);
+	///	Setters
 
-	Label(std::string text, TTF_Font *font, SDL_Renderer * renderer, float x = 0.f, float y = 0.f, SDL_Color color = {255,255,255});
+	void setText(std::string text);
+
+	///	Constructor
+
+	Label(const char * filePath, std::string text = "", int fontSize = 12, float x = 0.f, float y = 0.f, SDL_Color color = {255,255,255});
 
 	///	Destructor
-	~Label();
+	virtual ~Label();
+
+private:
+
+	void onUpdateTexture();
 
 };

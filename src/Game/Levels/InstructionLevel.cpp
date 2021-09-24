@@ -33,7 +33,7 @@ void InstructionLevel::updateEvents(Uint32 time, float dt) {
 		}
 	}
 
-	doneLabel->setAlpha(alpha);
+	doneLabel.setAlpha(alpha);
 
 }
 
@@ -45,24 +45,20 @@ void InstructionLevel::setup() {
 
 }
 
-InstructionLevel::InstructionLevel() : asgore(nullptr),instructionMusic(nullptr), titleLabel(nullptr), doneLabel(nullptr), alpha(0), fadeIn(false) {
+InstructionLevel::InstructionLevel() : asgore("res/anim/asgoreidle1.png", 30, 15), instructionMusic(nullptr), titleLabel("res/fnt/DTM-Mono.ttf", "Instructions", 100), doneLabel("res/fnt/DTM-Mono.ttf", "Z TO EXIT", 35), alpha(0), fadeIn(false) {
 
 	std::vector<Entity *> screenObjects;
 
 	//	asgore
-	asgore = loadAnimatedEntity("res/anim/knifeslash1.png", 7, 150);
-	asgore->setScaleX(10);
-	asgore->setScaleY(20);
-	screenObjects.push_back(asgore);
+	screenObjects.push_back(&asgore);
 
 	//	instructionMusic
 	instructionMusic = loadMusic("res/mus/instructionmusic.wav");
 
 	//	titleLabel
-	titleLabel = loadLabel("Instructions", "res/fnt/DTM-Mono.ttf", 100, {255,255,255});
-	titleLabel->setCentered(true);
-	titleLabel->setPosition(screenWidth/2, screenHeight/6);
-	screenObjects.push_back(titleLabel);
+	titleLabel.setCentered(true);
+	titleLabel.setPosition(screenWidth/2, screenHeight/6);
+	screenObjects.push_back(&titleLabel);
 
 	//	instructionLabels
 	for (int i = 0; i<6; ++i) {
@@ -91,7 +87,7 @@ InstructionLevel::InstructionLevel() : asgore(nullptr),instructionMusic(nullptr)
 				break;
 		}
 
-		instructionLabel = loadLabel(text, "res/fnt/DTM-Mono.ttf", 25, {255,255,255}, screenWidth*.375f, screenHeight/3+((screenHeight/15)*i));
+		instructionLabel = new Label("res/fnt/DTM-Mono.ttf", text, 25, screenWidth*.375f, screenHeight/3+((screenHeight/15)*i));
 		instructionLabel->setCentered(false);
 
 		instructionLabels.push_back(instructionLabel);
@@ -100,10 +96,10 @@ InstructionLevel::InstructionLevel() : asgore(nullptr),instructionMusic(nullptr)
 	}
 
 	//	doneLabel
-	doneLabel = loadLabel("Z TO EXIT", "res/fnt/DTM-Mono.ttf", 35, {255,255,0});
-	doneLabel->setCentered(true);
-	doneLabel->setPosition(screenWidth/2, screenHeight-(screenHeight/12));
-	screenObjects.push_back(doneLabel);
+	doneLabel.setColor({255,255,0});
+	doneLabel.setCentered(true);
+	doneLabel.setPosition(screenWidth/2, screenHeight-(screenHeight/12));
+	screenObjects.push_back(&doneLabel);
 
 	Game::Stage *mainStage = loadStage(screenObjects);
 	addStage(mainStage);
@@ -113,18 +109,12 @@ InstructionLevel::InstructionLevel() : asgore(nullptr),instructionMusic(nullptr)
 InstructionLevel::~InstructionLevel() {
 
 	//	Free 
-	delete asgore;
 	delete instructionMusic;
-	delete titleLabel;
 	for (Label *instructionLabel : instructionLabels) {
 		delete instructionLabel;
 	}
 	instructionLabels.clear();
-	delete doneLabel;
 
 	//	UNDANGLE THEM POINTERS!
-	asgore = nullptr;
 	instructionMusic = nullptr;
-	titleLabel = nullptr;
-	doneLabel = nullptr;
 }

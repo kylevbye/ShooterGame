@@ -4,6 +4,7 @@
 #include "Game/Levels/MainMenuLevel.h"
 #include "Game/Levels/InstructionLevel.h"
 #include "Game/Levels/LoadingBattleLevel.h"
+#include <memory>
 
 namespace Game {
 	class Level;
@@ -13,6 +14,12 @@ namespace Game {
 	class LoadingBattleLevel;
 }
 
+std::shared_ptr<Game::TitleLevel> TitleLevel;
+std::shared_ptr<Game::MainMenuLevel> mainMenuLevel;
+std::shared_ptr<Game::InstructionLevel> instructionLevel;
+std::shared_ptr<Game::LoadingBattleLevel> loadingBattleLevel;
+
+/*
 struct LevelHandler {
 
 	Game::TitleLevel *titleLevel;
@@ -20,6 +27,6 @@ struct LevelHandler {
 	Game::InstructionLevel *instructionLevel;
 	Game::LoadingBattleLevel *loadingBattleLevel;
 
-};
+};*/
 
-void cleanupLevels(LevelHandler &levelHandler);
+//void cleanupLevels(LevelHandler &levelHandler);

@@ -3,6 +3,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include "Entity.h"
+#include <memory>
 
 class Entity;
 
@@ -15,7 +16,7 @@ namespace Game {
 class Game::Stage {
 
 	private:
-
+//std::shared_ptr<Entity>
 		std::vector<Entity*> screenObjects;
 		bool activeFlag;
 
@@ -31,8 +32,8 @@ class Game::Stage {
 		///	String Representations
 		///
 
-		const char *toCStr() { return to_string().c_str(); }
-		std::string to_string();
+		//const char *toCStr() { return to_string().c_str(); }
+		//std::string to_string();
 
 		void addScreenObject(Entity *screenObject);
 		void removeScreenObject(Entity *screenObject);

@@ -26,6 +26,6 @@ public:
 	void stop();
 
 	Music(Mix_Music *music, bool looping = true);
-	~Music();
+	virtual ~Music();
 
 };

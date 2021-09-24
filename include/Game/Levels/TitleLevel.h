@@ -4,6 +4,7 @@
 #include "Sound.h"
 #include "Music.h"
 #include "AssetLoader.h"
+#include "KeyEventHandler.h"
 
 
 
@@ -16,9 +17,9 @@ class Game::TitleLevel : public Game::Level {
 
 private:
 
-	Label *titleLabelFront;
-	Label *titleLabelBack;
-	Label *instructionLabel;
+	Label titleLabelFront;
+	Label titleLabelBack;
+	Label instructionLabel;
 	Sound *titleDropSound;
 	Music *titleMusic;
 
@@ -33,6 +34,6 @@ public:
 	TitleLevel();
 
 	//	Destructor
-	~TitleLevel();
+	virtual ~TitleLevel();
 
 };
